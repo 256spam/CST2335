@@ -6,7 +6,4 @@
     <string name="FlagText">Canadian Flag</string>
     <string name="TextBoxText">Type your answer in here</string>
     <string name="ButtonText1">Button</string>
-    <string name="ButtonText2">Linear</string>
-    <string name="ButtonText3">Grid</string>
-    <string name="ButtonText4">Relative</string>
 </resources>

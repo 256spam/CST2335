@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android Labs</string>
+    <string name="app_name">laboratoires Android</string>
     <string name="topMessage">cest le widgets:</string>
     <string name="CheckboxText">regarde!</string>
     <string name="SwitchText">allumer/éteindre</string>
     <string name="FlagText">drapeau français</string>
     <string name="TextBoxText">tapez votre réponse ici</string>
-    <string name="ButtonText1">je suis monte</string>
-    <string name="ButtonText2">Linear</string>
-    <string name="ButtonText3">Grid</string>
-    <string name="ButtonText4">Relative</string>
+    <string name="ButtonText1">bouton</string>b
 </resources>
