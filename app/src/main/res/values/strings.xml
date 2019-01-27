@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Android Labs</string>
-    <string name="topMessage">Here are my widgets:</string>
-    <string name="CheckboxText">Check this out!</string>
-    <string name="SwitchText">Switch on/off</string>
-    <string name="FlagText">Canadian Flag</string>
-    <string name="TextBoxText">Type your answer in here</string>
-    <string name="ButtonText1">Button</string>
+    <string name="email_prompt">Enter your email address:</string>
+    <string name="email_hint">Type email here</string>
+    <string name="pass_prompt">Type your password:</string>
+    <string name="button1">Login</string>
+    <string name="profile_top">Your profile</string>
+    <string name="name_prompt">Your name:</string>
+    <string name="email_prompt2">Your Email:</string>
+    <string name="picture_prompt">Your Picture</string>
+    <string name="picture_prompt2">Click the button above to take a picture</string>
+    <string name="name_hint">Enter  your name</string>
+    <string name="email_hint2">Enter your email</string>
 </resources>
