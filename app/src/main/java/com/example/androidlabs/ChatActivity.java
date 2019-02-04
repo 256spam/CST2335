@@ -38,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         recieve.setOnClickListener( c -> {
-            addToChat(responses[random.nextInt(4 - 0)],R.drawable.row_recieve,true);
+            addToChat(responses[random.nextInt(5 - 0)],R.drawable.row_recieve,true);
             adapter.notifyDataSetChanged();
         });
     }
