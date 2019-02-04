@@ -3,6 +3,7 @@ package com.example.androidlabs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.EditText;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editText3;
     EditText editText4;
     ImageButton imageButton;
+    Button goChat;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final String ACTIVITY_NAME = "PROFILE_ACTIVITY";
 
@@ -31,6 +33,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         imageButton.setOnClickListener( b -> {
             dispatchTakePictureIntent();
+        });
+        goChat = findViewById(R.id.buttonGoChat);
+
+        goChat.setOnClickListener( c -> {
+            Intent nextPage = new Intent(ProfileActivity.this, ChatActivity.class);
+            startActivity(nextPage);
         });
         Log.e(ACTIVITY_NAME, "In function:"/*onCreate*/);
     }

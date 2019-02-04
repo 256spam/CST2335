@@ -11,4 +11,8 @@
     <string name="picture_prompt2">Click the button above to take a picture</string>
     <string name="name_hint">Enter  your name</string>
     <string name="email_hint2">Enter your email</string>
+    <string name="GotoChat">Go to chat</string>
+    <string name="button_Send">Send</string>
+    <string name="button_Receive">Receive</string>
+    <string name="chat_hint">Type Here</string>
 </resources>

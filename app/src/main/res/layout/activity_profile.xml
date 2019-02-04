@@ -58,4 +58,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/picture_prompt2" />
+
+    <Button
+        android:id="@+id/buttonGoChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/GotoChat" />
 </LinearLayout>
