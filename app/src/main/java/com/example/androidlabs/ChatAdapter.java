@@ -44,7 +44,7 @@ public class ChatAdapter extends ArrayAdapter<Message>
     @Override
     public int getItemViewType(int position){
         Message message = messageList.get(position);
-        if(message.isFake()) {
+        if(message.getside() == 1) {
             return 1;
         }else{
             return 0;

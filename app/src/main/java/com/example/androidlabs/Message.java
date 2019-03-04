@@ -3,12 +3,14 @@ package com.example.androidlabs;
 public class Message {
     public String messageContents;
     public int imageID;
-    public boolean fake;
+    public int side;
+    public long id;
 
-    public Message (String s, int i, boolean b){
+    public Message (String s, int i, int b, long d){
         messageContents = s;
         imageID = i;
-        fake = b;
+        side = b;
+        id = d;
     }
 
     public String getMessageContents() {
@@ -17,8 +19,8 @@ public class Message {
     public int getImageID() {
         return imageID;
     }
-
-    public boolean isFake() {
-        return fake;
+    public int getside() {
+        return side;
     }
+    public long getID() {return id;}
 }
