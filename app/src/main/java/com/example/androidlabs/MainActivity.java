@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText2;
     SharedPreferences preferences;
     Button loginButton;
+    Button toolbarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener( c -> {
             Intent nextPage = new Intent(MainActivity.this, ProfileActivity.class);
             nextPage.putExtra("typed", editText1.getText().toString());
+            startActivity(nextPage);
+        });
+
+        toolbarButton = findViewById(R.id.toolbartestbutton);
+        toolbarButton.setOnClickListener( c -> {
+            Intent nextPage = new Intent(MainActivity.this, TestToolbar.class);
             startActivity(nextPage);
         });
     }

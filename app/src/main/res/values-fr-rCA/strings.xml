@@ -16,4 +16,5 @@
     <string name="button_Send">Envoyer</string>
     <string name="button_Receive">Recevoir</string>
     <string name="chat_hint">Écrivez ici</string>
+    <string name="toolbarButton">GotoTestToolbar</string>
 </resources>
