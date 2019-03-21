@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
             Intent nextPage = new Intent(MainActivity.this, TestToolbar.class);
             startActivity(nextPage);
         });
+
+        toolbarButton = findViewById(R.id.buttonWeather);
+        toolbarButton.setOnClickListener( c -> {
+            Intent nextPage = new Intent(MainActivity.this, WeatherForecast.class);
+            startActivity(nextPage);
+        });
     }
     @Override
     protected void onPause(){
