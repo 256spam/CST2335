@@ -2,6 +2,7 @@ package com.example.androidlabs;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,10 +23,17 @@ public class ChatActivity extends AppCompatActivity {
     ArrayList<Message> messages;
     String[] responses = new String[] {"Hello", "Reminder, I am not a real person.", "Is there anything you need?", "Yes", "No"};
     ChatAdapter adapter;
+    DatabaseOpener dataOpener;
+    SQLiteDatabase db;
+
     final static String TABLE_NAME = "Messages";
     final static String COL_CONTENTS = "CONTENTS";
     final static String COL_IMAGE = "IMAGE";
     final static String COL_SIDE = "SIDE";
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_POSITION = "POSITION";
+    public static final String ITEM_ID = "ID";
+    public static final int EMPTY_ACTIVITY = 345;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +46,42 @@ public class ChatActivity extends AppCompatActivity {
         Random random = new Random();
         messages = new ArrayList<Message>();
 
-        DatabaseOpener dataOpener = new DatabaseOpener(this);
-        SQLiteDatabase db = dataOpener.getWriteableDatabase();
+        dataOpener = new DatabaseOpener(this);
+        db = dataOpener.getWriteableDatabase();
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         adapter = new ChatAdapter(getApplicationContext(), R.layout.chatrecieve,messages);
         chat.setAdapter(adapter);
+        chat.setOnItemClickListener( (list, item, position, id) -> {
+
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(ITEM_SELECTED, messages.get(position).getMessageContents());
+            dataToPass.putInt(ITEM_POSITION, position);
+            dataToPass.putLong(ITEM_ID,messages.get(position).getID());
+            Log.e("DEBUG","reached completed data bundle");
+
+            if(isTablet)
+            {
+                Log.e("DEBUG","is tablet");
+                DetailFragment dFragment = new DetailFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                Log.e("DEBUG","loaded data bundle");
+                dFragment.setTablet(true);  //tell the fragment if it's running on a tablet or not
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .addToBackStack("AnyName") //make the back button undo the transaction
+                        .commit(); //actually load the fragment.
+            }
+            else //isPhone
+            {
+                Log.e("DEBUG","isnt tablet");
+                Intent nextActivity = new Intent(ChatActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                Log.e("DEBUG","loaded data bundle");
+                startActivityForResult(nextActivity, EMPTY_ACTIVITY); //make the transition
+            }
+        });
 
         Cursor csr = db.rawQuery("SELECT * from " + TABLE_NAME, null);
         csr.moveToFirst();
@@ -91,6 +130,18 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == EMPTY_ACTIVITY)
+        {
+            if(resultCode == RESULT_OK) //if you hit the delete button instead of back button
+            {
+                long id = data.getLongExtra(ITEM_ID, 0);
+                deleteMessageId((int)id);
+            }
+        }
     }
 
     protected void printCursor(Cursor c, SQLiteDatabase db){
@@ -142,5 +193,23 @@ public class ChatActivity extends AppCompatActivity {
         public SQLiteDatabase getWriteableDatabase() {
             return super.getWritableDatabase();
         }
+    }
+
+    public void deleteMessageId(int id)
+    {
+        Log.i("Delete this message:" , " id="+id);
+        db.delete(TABLE_NAME, "id=?", new String[]{Long.toString(id)});
+        messages.clear();
+        Cursor csr = db.rawQuery("SELECT * from " + TABLE_NAME, null);
+        csr.moveToFirst();
+        for(int i = 0; i < csr.getCount(); i++){
+            String cnts = csr.getString(csr.getColumnIndex( COL_CONTENTS ));
+            int img = csr.getInt(csr.getColumnIndex( COL_IMAGE ));
+            int side = csr.getInt(csr.getColumnIndex( COL_SIDE ));
+            long idnum = csr.getLong(csr.getColumnIndex( "id"));
+            addToChat(cnts,img,side,idnum);
+            csr.moveToNext();
+        }
+        adapter.notifyDataSetChanged();
     }
 }
